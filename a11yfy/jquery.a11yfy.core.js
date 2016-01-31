@@ -308,6 +308,7 @@
                         var keyCode = e.which || e.keyCode,
                             handled = false,
                             $this = jQuery(this),
+                            $childLink = $this.children("a").first();
 
                         if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) {
                             // not interested
