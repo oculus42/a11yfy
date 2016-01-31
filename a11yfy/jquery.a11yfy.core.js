@@ -301,7 +301,8 @@
                          */
                         var keyCode = e.which || e.keyCode,
                             handled = false,
-                            $this = jQuery(this);
+                            $this = jQuery(this),
+                            $childLink = $this.find(">a").first();
 
                         if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) {
                             // not interested
@@ -312,14 +313,9 @@
                             case 32: // space
                             case 13: // enter
                                 handled = true;
-                                if ($this.find(">a").length) {
-                                    if ($this.find(">a")[0].click) {
-                                        /* If this is a leaf node, activate it*/
-                                        $this.find(">a")[0].click();
-                                    } else {
-                                        // This is a hack for PhantomJS
-                                        $this.find(">a").first().trigger("click");
-                                    }
+                                if ($childLink.length) {
+                                    /* If this is a leaf node, activate it */
+                                    $childLink.trigger("click");
                                 } else {
                                     /* If it has a sub-menu, open the sub-menu */
                                     openMenu($this);
