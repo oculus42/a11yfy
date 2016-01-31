@@ -382,11 +382,7 @@
                     }).on("click", function() {
                         var $this = jQuery(this);
 
-                        if (!$this.hasClass("open")) {
-                            $this.addClass("open");
-                        } else {
-                            $this.removeClass("open");
-                        }
+                        $this.toggleClass('open');
                     }).first().attr("tabindex", "0"); // Make the first menuitem in the menubar tab focussable
                     $this.on("keydown", function (e) {
                         /*
