@@ -47,14 +47,14 @@
      * Moves the focus to the preceding/mext menuitem
      */
     function moveInMenu($this, direction) {
-        var $context = $this;
-        var $flow = $context[direction]();
+        var $context = $this,
+            $flow = $context[direction]();
 
         $this.attr("tabindex", "-1");
         while (true) {
             if ($flow.is(':visible')) {
                 $flow.attr("tabindex", "0").focus();
-                return
+                return;
             }
             // Walk the tree
             $context = $flow;
@@ -65,7 +65,7 @@
 
                 if ($context.is(':visible')) {
                     $context.attr("tabindex", "0").focus();
-                    return
+                    return;
                 }
             }
             if ($context[0] === $this[0]) {
@@ -88,10 +88,10 @@
         errMessage: 'a11yfy-error-message',
         skipLink: 'a11yfy-skip-link',
         summaryLink: 'a11yfy-summary-link'
-    };
+    },
 
 
-    var $politeAnnouncer = jQuery('#' + config.politeId),
+        $politeAnnouncer = jQuery('#' + config.politeId),
         $assertiveAnnouncer = jQuery('#' + config.assertiveId),
         methods = {
             showAndFocus: function(focus) {
@@ -332,7 +332,7 @@
                                 handled = true;
                                 if (keyCode === 37 && $this.parent().hasClass(config.menuLevel1)) {
                                     /* If in the menubar, then simply move to the previous menuitem */
-                                    prevInMenu();
+                                    moveInMenu($this, 'next');
                                 } else {
                                     if ($this.parent().attr("role") === "menu") {
                                         // this is part of a submenu, set focus on containing li
@@ -427,7 +427,7 @@
                 });
             }
         },
-        ua = window.navigator.userAgent,
+        ua = window.navigator.userAgent || "",
         platform = ua.match(/iPhone|iPad|iPod/) ? "iOS" :
                     ua.match(/Mac OS X/) ? "OSX" :
                     ua.match(/Windows/) ? "Windows" : "Other";
