@@ -209,7 +209,7 @@
                     );
                     // Add the aria-required attributes to all the input elements that have the required
                     // attribute
-                    $this.find("[required]").attr("aria-required", "true");
+                    $this.find("[required]").prop("aria-required", true);
                 });
             },
             menu : function() {
@@ -229,12 +229,12 @@
                         .addClass(config.menuLevel2)
                         .parent()
                             .addClass(config.hasSubClass)
-                            .attr("aria-haspopup", "true");
+                            .prop("aria-haspopup", true);
                     $this.find(">li>ul>li>ul")
                         .addClass(config.menuLevel3)
                         .parent()
                             .addClass(config.hasSubClass)
-                            .attr("aria-haspopup", "true");
+                            .prop("aria-haspopup", true)
                     /*
                      * Set up the keyboard and mouse handlers for all the individual menuitems
                      */
