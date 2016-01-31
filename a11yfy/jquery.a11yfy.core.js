@@ -167,9 +167,13 @@
 
                             // add link to the next field with a validation error
                             if (index < (invalidIds.length - 1) && opts.skipLink) {
-                                $next = jQuery("<a href=\"#\" class=\"" + config.skipLink + "\">");
-                                $next.text(jQuery.a11yfy.getI18nString("skipToNextError", undefined, jQuery.fn.a11yfy.defaults.strings));
-                                $next.attr("href", "#" + invalidIds[index+1]);
+
+                                $next = jQuery('<a>',{
+                                    class: config.skipLink,
+                                    href: "#" + invalidIds[index+1],
+                                    text: jQuery.a11yfy.getI18nString("skipToNextError", undefined, jQuery.fn.a11yfy.defaults.strings)
+                                });
+
                                 if ($input.parent()[0].nodeName === "P") {
                                     $input.parent().after($next);
                                 } else {
@@ -178,8 +182,10 @@
                             }
 
                             // Add the error message into the label
-                            $span = jQuery("<span class=\"" + config.errMessage + "\">");
-                            $span.text(" - " + validator.invalid[invalidId]);
+                            $span = jQuery('<span>', {
+                                class: config.errMessage,
+                                text: " - " + validator.invalid[invalidId]
+                            });
                             $label.append($span);
                         });
                         if (opts.summary) {
