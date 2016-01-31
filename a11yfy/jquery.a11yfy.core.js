@@ -234,7 +234,7 @@
                         .addClass(config.menuLevel3)
                         .parent()
                             .addClass(config.hasSubClass)
-                            .prop("aria-haspopup", true)
+                            .prop("aria-haspopup", true);
                     /*
                      * Set up the keyboard and mouse handlers for all the individual menuitems
                      */
