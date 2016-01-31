@@ -269,16 +269,17 @@
                             return true;
                         }
 
-                        $menuitems.each(function(index, value) {
-                            if (value === currentItem) {
+                        $menuitems.each(function(index, element) {
+                            var $el = jQuery(element);
+                            if (element === currentItem) {
                                 ourIndex = index;
                             }
                             if (index > ourIndex && !$nextItem) {
-                                if (jQuery(value).text().trim().toLowerCase().indexOf(keyString) === 0) {
+                                if ($el.text().trim().toLowerCase().indexOf(keyString) === 0) {
                                     if (ourIndex !== -1) {
-                                        $nextItem = jQuery(value);
+                                        $nextItem = $el;
                                     } else if (!$prevItem) {
-                                        $prevItem = jQuery(value);
+                                        $prevItem = $el;
                                     }
                                 }
                             }
