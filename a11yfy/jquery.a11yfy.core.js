@@ -196,7 +196,7 @@
 
                     $this.validate(vOptions);
                     if (opts.skipLink) {
-                        $this.delegate("a." + config.skipLink, "click", function(e) {
+                        $this.on("click", "a." + config.skipLink, function(e) {
                             var $target = jQuery(e.target);
 
                             jQuery($target.attr("href")).select().focus();
