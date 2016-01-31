@@ -42,7 +42,7 @@
     /**
      * Abstract directional move logic from next/prevInMenu
      * @param {jQuery} $this
-     * @param {string} direction - 'next' or 'prev'
+     * @param {string} direction - "next" or "prev"
      *
      * Moves the focus to the preceding/mext menuitem
      */
@@ -52,7 +52,7 @@
 
         $this.attr("tabindex", "-1");
         while (true) {
-            if ($flow.is(':visible')) {
+            if ($flow.is(":visible")) {
                 $flow.attr("tabindex", "0").focus();
                 return;
             }
@@ -61,9 +61,9 @@
             $flow = $context[direction]();
             if (!$flow.length) {
 
-                $context =  $this.parent().children("li")[direction === 'next' ? 'first' : 'last']();
+                $context =  $this.parent().children("li")[direction === "next" ? "first" : "last"]();
 
-                if ($context.is(':visible')) {
+                if ($context.is(":visible")) {
                     $context.attr("tabindex", "0").focus();
                     return;
                 }
@@ -77,22 +77,22 @@
 
     /* Config object includes commons strings/classes */
     var config = {
-        politeId: 'jquery-a11yfy-politeannounce',
-        assertiveId: 'jquery-a11yfy-assertiveannounce',
-        hasSubClass: 'a11yfy-has-submenu',
-        menuLevel1: 'a11yfy-top-level-menu',
-        menuLevel2: 'a11yfy-second-level-menu',
-        menuLevel3: 'a11yfy-thir-level-menu',
-        valErrClass: 'a11yfy-validation-error',
-        errSummary: 'a11yfy-error-summary',
-        errMessage: 'a11yfy-error-message',
-        skipLink: 'a11yfy-skip-link',
-        summaryLink: 'a11yfy-summary-link'
+        politeId: "jquery-a11yfy-politeannounce",
+        assertiveId: "jquery-a11yfy-assertiveannounce",
+        hasSubClass: "a11yfy-has-submenu",
+        menuLevel1: "a11yfy-top-level-menu",
+        menuLevel2: "a11yfy-second-level-menu",
+        menuLevel3: "a11yfy-thir-level-menu",
+        valErrClass: "a11yfy-validation-error",
+        errSummary: "a11yfy-error-summary",
+        errMessage: "a11yfy-error-message",
+        skipLink: "a11yfy-skip-link",
+        summaryLink: "a11yfy-summary-link"
     },
 
 
-        $politeAnnouncer = jQuery('#' + config.politeId),
-        $assertiveAnnouncer = jQuery('#' + config.assertiveId),
+        $politeAnnouncer = jQuery("#" + config.politeId),
+        $assertiveAnnouncer = jQuery("#" + config.assertiveId),
         methods = {
             showAndFocus: function(focus) {
                 var $focus = focus ? jQuery(focus) : focus;
@@ -168,7 +168,7 @@
                             // add link to the next field with a validation error
                             if (index < (invalidIds.length - 1) && opts.skipLink) {
 
-                                $next = jQuery('<a>',{
+                                $next = jQuery("<a>",{
                                     class: config.skipLink,
                                     href: "#" + invalidIds[index+1],
                                     text: jQuery.a11yfy.getI18nString("skipToNextError", undefined, jQuery.fn.a11yfy.defaults.strings)
@@ -182,7 +182,7 @@
                             }
 
                             // Add the error message into the label
-                            $span = jQuery('<span>', {
+                            $span = jQuery("<span>", {
                                 class: config.errMessage,
                                 text: " - " + validator.invalid[invalidId]
                             });
@@ -332,7 +332,7 @@
                                 handled = true;
                                 if (keyCode === 37 && $this.parent().hasClass(config.menuLevel1)) {
                                     /* If in the menubar, then simply move to the previous menuitem */
-                                    moveInMenu($this, 'next');
+                                    moveInMenu($this, "next");
                                 } else {
                                     if ($this.parent().attr("role") === "menu") {
                                         // this is part of a submenu, set focus on containing li
@@ -349,14 +349,14 @@
                                     openMenu($this);
                                 } else {
                                     /* If in sub-menu, move to previous element */
-                                    moveInMenu($this, 'prev');
+                                    moveInMenu($this, "prev");
                                 }
                                 break;
                             case 39: //right
                                 handled = true;
                                 if ($this.parent().hasClass(config.menuLevel1)) {
                                     /* If in menubar, move to next menuitem */
-                                    moveInMenu($this, 'next');
+                                    moveInMenu($this, "next");
                                 } else {
                                     /* If in sub-menu, open sub-sub-menu */
                                     openMenu($this);
@@ -369,7 +369,7 @@
                                     openMenu($this);
                                 } else {
                                     /* If in sub-menu, move to the next menuitem */
-                                    moveInMenu($this, 'next');
+                                    moveInMenu($this, "next");
                                 }
                                 break;
                         }
@@ -382,7 +382,7 @@
                     }).on("click", function() {
                         var $this = jQuery(this);
 
-                        $this.toggleClass('open');
+                        $this.toggleClass("open");
                     }).first().attr("tabindex", "0"); // Make the first menuitem in the menubar tab focusable
                     $this.on("keydown", function (e) {
                         /*
