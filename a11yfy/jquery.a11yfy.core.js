@@ -61,7 +61,7 @@
             $flow = $context[direction]();
             if (!$flow.length) {
 
-                $context =  $this.parent().find(">li")[direction === 'next' ? 'first' : 'last']();
+                $context =  $this.parent().children("li")[direction === 'next' ? 'first' : 'last']();
 
                 if ($context.is(':visible')) {
                     $context.attr("tabindex", "0").focus();
@@ -399,7 +399,7 @@
                             return true;
                         }
                         /* Find out whether we are currently in the menubar */
-                        $this.find(">li").each(function(index, value) {
+                        $this.children("li").each(function(index, value) {
                             if (jQuery(value).attr("tabindex") === "0") {
                                 focusInTopMenu = true;
                             }
