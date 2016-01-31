@@ -77,8 +77,8 @@
 
     /* Config object includes commons strings/classes */
     var config = {
-        politeId: 'jquery-a11yfy-politeannouncer',
-        assertiveId: 'jquery-a11yfy-assertiveannouncer',
+        politeId: 'jquery-a11yfy-politeannounce',
+        assertiveId: 'jquery-a11yfy-assertiveannounce',
         hasSubClass: 'a11yfy-has-submenu',
         menuLevel1: 'a11yfy-top-level-menu',
         menuLevel2: 'a11yfy-second-level-menu',
