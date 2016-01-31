@@ -226,7 +226,7 @@
                     if (value.nodeName !== "UL") {
                         throw new Error("The menu container must be an unordered list");
                     }
-                    /* First make all anchor tags in the structure non-naturally focussable */
+                    /* First make all anchor tags in the structure non-naturally focusable */
                     $this.find("a").attr("tabindex", "-1");
                     /* Set the roles for the menubar */
                     $this.attr("role", "menubar").addClass(config.menuLevel1);
@@ -260,7 +260,7 @@
                         /*
                          * This implements the WAI-ARIA-PRACTICES keyboard functionality where
                          * pressing the key, corresponding to the first letter of a VISIBLE element
-                         * will move the focus to the first such element after the currently focussed
+                         * will move the focus to the first such element after the currently focused
                          * element
                          */
                         var keyCode = e.charCode || e.which || e.keyCode,
@@ -383,7 +383,7 @@
                         var $this = jQuery(this);
 
                         $this.toggleClass('open');
-                    }).first().attr("tabindex", "0"); // Make the first menuitem in the menubar tab focussable
+                    }).first().attr("tabindex", "0"); // Make the first menuitem in the menubar tab focusable
                     $this.on("keydown", function (e) {
                         /*
                          * This callback handles the tabbing out of the widget
@@ -414,7 +414,7 @@
                                 // This code is in a setTimeout so that shift tab works correctly AND
                                 // because there is a Firefox (Windows) bug that
                                 // causes the default event for a TAB to not happen properly if the visibility of the
-                                // currently focussed node is chanhed mid event (e.g. removal of the open class)
+                                // currently focused node is chanhed mid event (e.g. removal of the open class)
                                 $this.find("li.open").each(function(index, value) {
                                     if (jQuery(value).parent().hasClass(config.menuLevel1)) {
                                         jQuery(value).attr("tabindex", "0");
