@@ -310,18 +310,20 @@
                                 }
                                 break;
                             case 37: //left
+                                handled = true;
+                                /* If in the menubar, then simply move to the previous menuitem */
+                                if ($this.parent().hasClass("a11yfy-top-level-menu")) {
+                                    moveInMenu($this, 'prev');
+                                    /* Only break inside the condition; the other case is handled below with esc; */
+                                    break;
+                                }
                             case 27: //esc
                                 handled = true;
-                                if (keyCode === 37 && $this.parent().hasClass("a11yfy-top-level-menu")) {
-                                    /* If in the menubar, then simply move to the previous menuitem */
-                                    prevInMenu();
-                                } else {
-                                    if ($this.parent().attr("role") === "menu") {
-                                        // this is part of a submenu, set focus on containing li
-                                        $this.parent().parent().attr("tabindex", "0").focus()
-                                            .removeClass("open");
-                                        $this.attr("tabindex", "-1");
-                                    }
+                                if ($this.parent().attr("role") === "menu") {
+                                    // this is part of a submenu, set focus on containing li
+                                    $this.parent().parent().attr("tabindex", "0").focus()
+                                        .removeClass("open");
+                                    $this.attr("tabindex", "-1");
                                 }
                                 break;
                             case 38: //up
