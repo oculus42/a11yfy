@@ -26,6 +26,56 @@
  */
 
 (function (jQuery){
+    /* Define some universally usable functions at the top of the plugin */
+
+    /**
+     * Open a sub-menu and place focus on the first menuitem within it
+     * @param {jQuery} $this
+     */
+    function openMenu($this) {
+        if($this.hasClass("a11yfy-has-submenu")) {
+            $this.addClass("open").find(">ul>li:visible").first().attr("tabindex", "0").focus();
+            $this.attr("tabindex", "-1");
+        }
+    }
+
+    /**
+     * Abstract directional move logic from next/prevInMenu
+     * @param {jQuery} $this
+     * @param {string} direction - 'next' or 'prev'
+     *
+     * Moves the focus to the preceding/mext menuitem
+     */
+    function moveInMenu($this, direction) {
+        var $context = $this;
+        var $flow = $context[direction]();
+
+        $this.attr("tabindex", "-1");
+        while (true) {
+            if ($flow.is(':visible')) {
+                $flow.attr("tabindex", "0").focus();
+                return
+            }
+            // Walk the tree
+            $context = $flow;
+            $flow = $context[direction]();
+            if (!$flow.length) {
+
+                $context =  $this.parent().find(">li")[direction === 'next' ? 'first' : 'last']();
+
+                if ($context.is(':visible')) {
+                    $context.attr("tabindex", "0").focus();
+                    return
+                }
+            }
+            if ($context[0] === $this[0]) {
+                $this.attr("tabindex", "0");
+                break;
+            }
+        }
+    }
+
+
     var $politeAnnouncer = jQuery("#jquery-a11yfy-politeannouncer"),
         $assertiveAnnouncer = jQuery("#jquery-a11yfy-assertiveannouncer"),
         methods = {
@@ -241,65 +291,7 @@
                             // not interested
                             return;
                         }
-                        /*
-                         * Open a sub-menu and place focus on the first menuitem within it
-                         */
-                        function openMenu() {
-                            if($this.hasClass("a11yfy-has-submenu")) {
-                                $this.addClass("open").find(">ul>li:visible").first().attr("tabindex", "0").focus();
-                                $this.attr("tabindex", "-1");
-                            }
-                        }
-                        /*
-                         * Move the focus to the menuitem preceding the current menuitem
-                         */
-                        function prevInMenu() {
-                            var $context = $this;
-                            $this.attr("tabindex", "-1");
-                            while (true) {
-                                if ($context.prev().is(':visible')) {
-                                    $context.prev().attr("tabindex", "0").focus();
-                                    return
-                                }
-                                $context = $context.prev();
-                                if (!$context.prev().length) {
-                                    $context =  $this.parent().find(">li").last();
-                                    if ($context.is(':visible')) {
-                                        $context.attr("tabindex", "0").focus();
-                                        return
-                                    }
-                                }
-                                if ($context[0] === $this[0]) {
-                                    $this.attr("tabindex", "0")
-                                    break;
-                                }
-                            }
-                        }
-                        /*
-                         * Move the focus to the next menuitem after the currently focussed menuitem
-                         */
-                        function nextInMenu() {
-                            var $context = $this;
-                            $this.attr("tabindex", "-1");
-                            while (true) {
-                                if ($context.next().is(':visible')) {
-                                    $context.next().attr("tabindex", "0").focus();
-                                    return
-                                }
-                                $context = $context.next();
-                                if (!$context.next().length) {
-                                    $context = $this.parent().find(">li").first();
-                                    if ($context.is(':visible')) {
-                                        $context.attr("tabindex", "0").focus();
-                                        return
-                                    }
-                                }
-                                if ($context[0] === $this[0]) {
-                                    $this.attr("tabindex", "0")
-                                    break;
-                                }
-                            }
-                        }
+
                         switch(keyCode) {
                             case 32: // space
                             case 13: // enter
@@ -314,7 +306,7 @@
                                     }
                                 } else {
                                     /* If it has a sub-menu, open the sub-menu */
-                                    openMenu();
+                                    openMenu($this);
                                 }
                                 break;
                             case 37: //left
@@ -336,30 +328,30 @@
                                 handled = true;
                                 if ($this.parent().hasClass("a11yfy-top-level-menu")) {
                                     /* If in the menubar, then open the sub-menu */
-                                    openMenu();
+                                    openMenu($this);
                                 } else {
                                     /* If in sub-menu, move to previous element */
-                                    prevInMenu();
+                                    moveInMenu($this, 'prev');
                                 }
                                 break;
                             case 39: //right
                                 handled = true;
                                 if ($this.parent().hasClass("a11yfy-top-level-menu")) {
                                     /* If in menubar, move to next menuitem */
-                                    nextInMenu();
+                                    moveInMenu($this, 'next');
                                 } else {
                                     /* If in sub-menu, open sub-sub-menu */
-                                    openMenu();
+                                    openMenu($this);
                                 }
                                 break;
                             case 40: //down
                                 handled = true;
                                 if ($this.parent().hasClass("a11yfy-top-level-menu")) {
                                     /* If in menubar, open sub-menu */
-                                    openMenu();
+                                    openMenu($this);
                                 } else {
                                     /* If in sub-menu, move to the next menuitem */
-                                    nextInMenu();
+                                    moveInMenu($this, 'next');
                                 }
                                 break;
                         }
