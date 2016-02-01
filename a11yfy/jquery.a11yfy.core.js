@@ -215,7 +215,7 @@
                     );
                     // Add the aria-required attributes to all the input elements that have the required
                     // attribute
-                    $this.find("[required]").prop("aria-required", true);
+                    $this.find("[required]").attr("aria-required", "true");
                 });
             },
             menu : function() {
@@ -227,6 +227,7 @@
                         throw new Error("The menu container must be an unordered list");
                     }
                     /* First make all anchor tags in the structure non-naturally focusable */
+
                     $this.find("a").attr("tabindex", "-1");
                     /* Set the roles for the menubar */
                     $this.attr("role", "menubar").addClass(config.menuLevel1);
@@ -234,13 +235,14 @@
                     $this.find(">li>ul")
                         .addClass(config.menuLevel2)
                         .parent()
-                            .addClass(config.hasSubClass)
-                            .prop("aria-haspopup", true);
+                        .addClass(config.hasSubClass)
+                        .attr("aria-haspopup", "true");
                     $this.find(">li>ul>li>ul")
                         .addClass(config.menuLevel3)
                         .parent()
-                            .addClass(config.hasSubClass)
-                            .prop("aria-haspopup", true);
+                        .addClass(config.hasSubClass)
+                        .attr("aria-haspopup", "true");
+
                     /*
                      * Set up the keyboard and mouse handlers for all the individual menuitems
                      */
@@ -332,7 +334,7 @@
                                 handled = true;
                                 if (keyCode === 37 && $this.parent().hasClass(config.menuLevel1)) {
                                     /* If in the menubar, then simply move to the previous menuitem */
-                                    moveInMenu($this, "next");
+                                    moveInMenu($this, "prev");
                                 } else {
                                     if ($this.parent().attr("role") === "menu") {
                                         // this is part of a submenu, set focus on containing li
@@ -414,7 +416,7 @@
                                 // This code is in a setTimeout so that shift tab works correctly AND
                                 // because there is a Firefox (Windows) bug that
                                 // causes the default event for a TAB to not happen properly if the visibility of the
-                                // currently focused node is chanhed mid event (e.g. removal of the open class)
+                                // currently focused node is changed mid event (e.g. removal of the open class)
                                 $this.find("li.open").each(function(index, value) {
                                     if (jQuery(value).parent().hasClass(config.menuLevel1)) {
                                         jQuery(value).attr("tabindex", "0");
@@ -431,7 +433,7 @@
         platform = ua.match(/iPhone|iPad|iPod/) ? "iOS" :
                     ua.match(/Mac OS X/) ? "OSX" :
                     ua.match(/Windows/) ? "Windows" : "Other";
-    
+
     jQuery.a11yfy = function () {} ;
 
     jQuery.fn.a11yfy = function(method) {
