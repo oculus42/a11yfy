@@ -82,7 +82,7 @@
         hasSubClass: "a11yfy-has-submenu",
         menuLevel1: "a11yfy-top-level-menu",
         menuLevel2: "a11yfy-second-level-menu",
-        menuLevel3: "a11yfy-thir-level-menu",
+        menuLevel3: "a11yfy-third-level-menu",
         valErrClass: "a11yfy-validation-error",
         errSummary: "a11yfy-error-summary",
         errMessage: "a11yfy-error-message",
